@@ -1,20 +1,23 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import thunk from 'redux-thunk';
 
-import SongList from './components/SongList';
-import Song from './components/Song';
+import reducer from './reducer';
+
+import SongListContainer from './containers/song-list-container';
+import Song from './components/song';
 
 import './App.css';
 
-const reducer = state => state;
-const store = createStore(reducer);
+const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)));
 
 const App = () => (
   <Provider store={store}>
     <Router>
-      <Route path="/songs" component={SongList} />
+      <Route path="/songs" component={SongListContainer} />
       <Route path="/song/:id" component={Song} />
     </Router>
   </Provider>
