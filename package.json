@@ -11,6 +11,7 @@
     "react-redux": "^7.1.0",
     "react-router-dom": "^5.0.1",
     "redux": "^4.0.4",
+    "redux-thunk": "^2.3.0",
     "typeface-roboto": "0.0.75"
   },
   "devDependencies": {
@@ -54,6 +55,7 @@
     "postcss-safe-parser": "4.0.1",
     "prettier": "^1.18.2",
     "react-dev-utils": "^9.0.3",
+    "redux-devtools-extension": "^2.13.8",
     "resolve": "1.12.0",
     "resolve-url-loader": "3.1.0",
     "sass-loader": "7.2.0",
@@ -138,5 +140,6 @@
     "presets": [
       "react-app"
     ]
-  }
+  },
+  "proxy": "http://localhost:3000"
 }
