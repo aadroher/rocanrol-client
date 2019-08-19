@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
@@ -12,24 +13,11 @@ import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
 import { makeStyles } from '@material-ui/styles';
 
+const AdapterLink = React.forwardRef((props, ref) => (
+  <Link innerRef={ref} {...props} />
+));
+
 const useStyles = makeStyles(theme => ({
-  card: {
-    display: 'flex',
-  },
-  content: {
-    flex: '1 0 auto',
-  },
-  details: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  cover: {
-    width: 151,
-  },
-  controls: {
-    display: 'flex',
-    alignItems: 'center',
-  },
   playPauseIconButton: {
     margin: theme.spacing(1),
   },
@@ -42,41 +30,27 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-// const SongCard = ({ title, author }) => {
-//   const { card, details, content, controls, playIcon } = useStyles();
-//   return (
-//     <Card className={card}>
-//       <div className={content}>
-//         <CardContent classname={controls}>
-// <IconButton aria-label="play/pause">
-//   <PlayArrowIcon className={playIcon} />
-// </IconButton>
-//         </CardContent>
-//         <CardContent className={details}>
-// <Typography variant="h5">{title}</Typography>
-// <Typography variant="subtitle1">{author}</Typography>
-//         </CardContent>
-//       </div>
-//     </Card>
-//   );
-// };
+const SongCard = ({
+  id,
+  title,
+  author,
+  isPlaying,
+  onPlayButtonClick,
+  onPauseButtonClick,
+}) => {
+  const { playPauseIconButton, moreIconButton, playIcon } = useStyles();
 
-const SongCard = ({ title, author }) => {
-  const {
-    card,
-    details,
-    content,
-    controls,
-    playPauseIconButton,
-    iconButton,
-    moreIconButton,
-  } = useStyles();
   return (
     <Paper>
       <Grid container spacing={2}>
         <Grid item>
-          <IconButton className={iconButton} aria-label="play/pause">
-            <PlayArrowIcon className={playPauseIconButton} />
+          <IconButton className={playPauseIconButton} aria-label="play/pause">
+            {/* <PlayArrowIcon className={playIcon} /> */}
+            {isPlaying ? (
+              <PauseIcon className={playIcon} onClick={onPauseButtonClick} />
+            ) : (
+              <PlayArrowIcon className={playIcon} onClick={onPlayButtonClick} />
+            )}
           </IconButton>
         </Grid>
         <Grid item xs={12} sm container>
@@ -90,7 +64,11 @@ const SongCard = ({ title, author }) => {
           </Grid>
         </Grid>
         <Grid item>
-          <IconButton className={moreIconButton}>
+          <IconButton
+            className={moreIconButton}
+            component={AdapterLink}
+            to={`/songs/${id}`}
+          >
             <MoreHorizIcon />
           </IconButton>
         </Grid>
