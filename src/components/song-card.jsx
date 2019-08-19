@@ -35,12 +35,14 @@ const SongCard = ({
   title,
   author,
   isPlaying,
-  onPlayButtonClick,
-  onPauseButtonClick,
+  getOnPlayButtonClick,
+  getOnPauseButtonClick,
 }) => {
   const { playPauseIconButton, moreIconButton, playIcon } = useStyles();
 
-  const onIconButtonClick = isPlaying ? onPauseButtonClick : onPlayButtonClick;
+  const onIconButtonClick = isPlaying
+    ? getOnPauseButtonClick(id)
+    : getOnPlayButtonClick(id);
 
   return (
     <Paper>
@@ -51,7 +53,6 @@ const SongCard = ({
             onClick={onIconButtonClick}
             aria-label="play/pause"
           >
-            {/* <PlayArrowIcon className={playIcon} /> */}
             {isPlaying ? (
               <PauseIcon className={playIcon} />
             ) : (

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { playSong } from '../actions';
+import { playSong, pauseSong } from '../actions';
 import SongCard from '../components/song-card';
 
 const mapStateToProps = (_, { id, title, author, isPlaying }) => ({
@@ -10,8 +10,11 @@ const mapStateToProps = (_, { id, title, author, isPlaying }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onPlayButtonClick: id => {
+  getOnPlayButtonClick: id => () => {
     dispatch(playSong(id));
+  },
+  getOnPauseButtonClick: id => () => {
+    dispatch(pauseSong(id));
   },
 });
 
