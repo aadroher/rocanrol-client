@@ -9,7 +9,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/styles';
 
-import SongCard from '../components/song-card';
+import SongCardContainer from '../containers/song-card-container';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -33,9 +33,14 @@ const SongList = ({ songs = [], loadSongs }) => {
       </AppBar>
       <Container className={container} xs={12} maxWidth="md">
         <Grid container direction="column" spacing={2}>
-          {songs.map(({ id, title, author }) => (
+          {songs.map(({ id, title, author, isPlaying }) => (
             <Grid key={id} xs item>
-              <SongCard id={id} title={title} author={author} />
+              <SongCardContainer
+                id={id}
+                title={title}
+                author={author}
+                isPlaying={isPlaying}
+              />
             </Grid>
           ))}
         </Grid>
