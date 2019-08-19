@@ -35,21 +35,28 @@ const SongCard = ({
   title,
   author,
   isPlaying,
-  onPlayButtonClick,
-  onPauseButtonClick,
+  getOnPlayButtonClick,
+  getOnPauseButtonClick,
 }) => {
   const { playPauseIconButton, moreIconButton, playIcon } = useStyles();
+
+  const onIconButtonClick = isPlaying
+    ? getOnPauseButtonClick(id)
+    : getOnPlayButtonClick(id);
 
   return (
     <Paper>
       <Grid container spacing={2}>
         <Grid item>
-          <IconButton className={playPauseIconButton} aria-label="play/pause">
-            {/* <PlayArrowIcon className={playIcon} /> */}
+          <IconButton
+            className={playPauseIconButton}
+            onClick={onIconButtonClick}
+            aria-label="play/pause"
+          >
             {isPlaying ? (
-              <PauseIcon className={playIcon} onClick={onPauseButtonClick} />
+              <PauseIcon className={playIcon} />
             ) : (
-              <PlayArrowIcon className={playIcon} onClick={onPlayButtonClick} />
+              <PlayArrowIcon className={playIcon} />
             )}
           </IconButton>
         </Grid>

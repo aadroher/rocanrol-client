@@ -17,11 +17,10 @@ const receiveSongsError = err => ({
 });
 
 export const fetchSongs = pageNumber => async dispatch => {
-  dispatch(receiveSongsOk(pageNumber));
+  dispatch(requestSongs(pageNumber));
 
-  const response = await window.fetch(`/songs?page=${pageNumber}`);
+  const response = await window.fetch(`/api/songs?page=${pageNumber}`);
   if (response.ok) {
-    console.log(response);
     const { songs } = await response.json();
     dispatch(receiveSongsOk(pageNumber, songs));
   } else {
@@ -29,3 +28,15 @@ export const fetchSongs = pageNumber => async dispatch => {
     dispatch(receiveSongsError(new Error(msg)));
   }
 };
+
+export const PLAY_SONG = 'PLAY_SONG';
+export const playSong = id => ({
+  type: PLAY_SONG,
+  id,
+});
+
+export const PAUSE_SONG = 'PAUSE_SONG';
+export const pauseSong = id => ({
+  type: PAUSE_SONG,
+  id,
+});
