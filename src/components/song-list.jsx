@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+
 import AppBar from '@material-ui/core/AppBar';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -13,7 +14,7 @@ const SongList = ({ songs = [], loadSongs }) => {
     loadSongs();
   }, []);
   return (
-    <div>
+    <>
       <AppBar position="sticky" color="primary">
         <Toolbar variant="dense">
           <Typography variant="h6">
@@ -35,7 +36,7 @@ const SongList = ({ songs = [], loadSongs }) => {
           ))}
         </GridList>
       </Container>
-    </div>
+    </>
   );
 };
 export default SongList;
