@@ -11,6 +11,7 @@ const intialState = {
   selectedSong: {
     id: null,
     isPlaying: false,
+    url: '',
   },
   songs: [],
 };
@@ -33,6 +34,20 @@ const addPlayState = ({ songs, selectedSong }) => {
   };
 };
 
+const addUrlToSelectedSong = ({ songs = [], selectedSong }) => {
+  const { id: selectedSongId } = selectedSong;
+  console.log({ songs });
+  const { url = '' } = songs.find(({ id }) => id === selectedSongId) || {};
+  const newSelectedSong = {
+    ...selectedSong,
+    url,
+  };
+  return {
+    selectedSong: newSelectedSong,
+    songs,
+  };
+};
+
 const reducer = (state = intialState, action) => {
   console.log({ state, action });
   const { type } = action;
@@ -43,31 +58,34 @@ const reducer = (state = intialState, action) => {
         ...state,
         songs,
       };
-      return addPlayState(withUpdatedSongs);
+      return addUrlToSelectedSong(addPlayState(withUpdatedSongs));
     }
     case PLAY_SONG: {
       const { id } = action;
       const selectedSong = {
         id,
         isPlaying: true,
+        url: '',
       };
       const withUpdatedSelectedSong = {
         ...state,
         selectedSong,
       };
-      return addPlayState(withUpdatedSelectedSong);
+      return addUrlToSelectedSong(addPlayState(withUpdatedSelectedSong));
     }
     case PAUSE_SONG: {
       const { id } = action;
-      const selectedSong = {
+      const { selectedSong } = state;
+      const newSelectedSong = {
         id,
         isPlaying: false,
+        ...selectedSong,
       };
       const withUpdatedSelectedSong = {
         ...state,
         selectedSong,
       };
-      return addPlayState(withUpdatedSelectedSong);
+      return addUrlToSelectedSong(addPlayState(withUpdatedSelectedSong));
     }
     default:
       return state;

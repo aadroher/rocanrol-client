@@ -1,5 +1,8 @@
 import { createMuiTheme } from '@material-ui/core/styles';
 
-const theme = {};
+const palette = { primary: { main: '#880E4F' } };
+const themeName = 'Rose Bud Cherry Razzmatazz Megaladon';
 
-export default createMuiTheme(theme);
+const muiTheme = createMuiTheme({ palette, themeName });
+
+export default muiTheme;
