@@ -1,5 +1,6 @@
 import React from 'react';
 import { ThemeProvider } from '@material-ui/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { createStore, applyMiddleware, compose } from 'redux';
@@ -16,14 +17,17 @@ import theme from './styles/theme';
 const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)));
 
 const App = () => (
-  <ThemeProvider theme={theme}>
-    <Provider store={store}>
-      <Router>
-        <Route path="/songs" component={SongListContainer} />
-        <Route path="/song/:id" component={Song} />
-      </Router>
-    </Provider>
-  </ThemeProvider>
+  <>
+    <CssBaseline />
+    <ThemeProvider theme={theme}>
+      <Provider store={store}>
+        <Router>
+          <Route path="/songs" component={SongListContainer} />
+          <Route path="/song/:id" component={Song} />
+        </Router>
+      </Provider>
+    </ThemeProvider>
+  </>
 );
 
 export default App;
