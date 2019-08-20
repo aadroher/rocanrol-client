@@ -77,6 +77,7 @@ const SongCard = ({
             <Typography variant="subtitle1">{author}</Typography>
           </Grid>
           <Grid item>
+            <Link to={`/songs/${id}`}> song</Link>
             <IconButton
               className={moreIconButton}
               component={AdapterLink}
