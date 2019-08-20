@@ -6,14 +6,25 @@ import React, {
   useState,
 } from 'react';
 
-const attachEventListeners = audioEl => {
-  console.log(audioEl);
-  audioEl.addEventListener('play', () => {
-    console.log('play emitted');
-  });
-  audioEl.addEventListener('pause', () => {
-    console.log('pause emitted');
-  });
+const reloadSong = ({ audioEl, src }) => {
+  if (audioEl) {
+    const { currentSrc } = audioEl;
+    const srcChanged = !currentSrc.includes(src);
+    if (srcChanged) {
+      audioEl.load();
+      audioEl.play();
+    }
+  }
+};
+
+const togglePlayback = ({ audioEl, src, isPlaying }) => {
+  if (audioEl && src) {
+    if (isPlaying) {
+      audioEl.play();
+    } else {
+      audioEl.pause();
+    }
+  }
 };
 
 const AudioPlayer = ({ src, isPlaying }) => {
@@ -21,30 +32,12 @@ const AudioPlayer = ({ src, isPlaying }) => {
 
   useEffect(() => {
     const { current: audioEl } = audioElRef;
-    if (audioEl) {
-      console.log('src changed', audioEl.currentSrc);
-      const { currentSrc } = audioEl;
-      const srcChanged = !currentSrc.includes(src);
-      if (srcChanged) {
-        audioEl.load();
-        audioEl.play();
-      }
-    }
+    reloadSong({ audioEl, src });
   }, [src]);
 
   useEffect(() => {
     const { current: audioEl } = audioElRef;
-    console.log('isPlaying changed', { audioEl, src, isPlaying });
-    if (audioEl) {
-      attachEventListeners(audioEl);
-      if (src) {
-        if (isPlaying) {
-          audioEl.play();
-        } else {
-          audioEl.pause();
-        }
-      }
-    }
+    togglePlayback({ audioEl, src, isPlaying });
   }, [isPlaying]);
 
   return (
