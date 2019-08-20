@@ -18,12 +18,20 @@ const AdapterLink = React.forwardRef((props, ref) => (
 ));
 
 const useStyles = makeStyles(theme => ({
-  playPauseIconButton: {
-    margin: theme.spacing(1),
-  },
-  moreIconButton: {
-    margin: theme.spacing(1),
-  },
+  // paper: {
+  //   backgroundColor: ({ isSelected }) => {
+  //     console.log(theme)
+  //     console.log('style hook', { isSelected });
+  //     const { palette }
+  //     return isSelected ? theme.primary : theme.secon;
+  //   },
+  // },
+  // playPauseIconButton: {
+  //   margin: theme.spacing(1),
+  // },
+  // moreIconButton: {
+  //   margin: theme.spacing(1),
+  // },
   playIcon: {
     height: 38,
     width: 38,
@@ -35,52 +43,51 @@ const SongCard = ({
   title,
   author,
   isPlaying,
+  isSelected,
   getOnPlayButtonClick,
   getOnPauseButtonClick,
 }) => {
-  const { playPauseIconButton, moreIconButton, playIcon } = useStyles();
+  const { playPauseIconButton, moreIconButton, playIcon } = useStyles({
+    isSelected,
+  });
 
   const onIconButtonClick = isPlaying
     ? getOnPauseButtonClick(id)
     : getOnPlayButtonClick(id);
 
   return (
-    <Paper>
-      <Grid container spacing={2}>
-        <Grid item>
-          <IconButton
-            className={playPauseIconButton}
-            onClick={onIconButtonClick}
-            aria-label="play/pause"
-          >
-            {isPlaying ? (
-              <PauseIcon className={playIcon} />
-            ) : (
-              <PlayArrowIcon className={playIcon} />
-            )}
-          </IconButton>
-        </Grid>
-        <Grid item xs={12} sm container>
-          <Grid item xs container direction="column" spacing={2}>
-            <Grid item xs>
-              <Typography variant="h5">{title}</Typography>
-            </Grid>
-            <Grid item xs>
-              <Typography variant="subtitle1">{author}</Typography>
-            </Grid>
+    <Card raised={isSelected}>
+      <CardContent>
+        <Grid container spacing={2}>
+          <Grid item>
+            <IconButton
+              className={playPauseIconButton}
+              onClick={onIconButtonClick}
+              aria-label="play/pause"
+            >
+              {isPlaying ? (
+                <PauseIcon className={playIcon} />
+              ) : (
+                <PlayArrowIcon className={playIcon} />
+              )}
+            </IconButton>
+          </Grid>
+          <Grid item xs={12} sm container direction="column">
+            <Typography variant="h5">{title}</Typography>
+            <Typography variant="subtitle1">{author}</Typography>
+          </Grid>
+          <Grid item>
+            <IconButton
+              className={moreIconButton}
+              component={AdapterLink}
+              to={`/songs/${id}`}
+            >
+              <MoreHorizIcon />
+            </IconButton>
           </Grid>
         </Grid>
-        <Grid item>
-          <IconButton
-            className={moreIconButton}
-            component={AdapterLink}
-            to={`/songs/${id}`}
-          >
-            <MoreHorizIcon />
-          </IconButton>
-        </Grid>
-      </Grid>
-    </Paper>
+      </CardContent>
+    </Card>
   );
 };
 

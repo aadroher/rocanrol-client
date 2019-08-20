@@ -29,6 +29,12 @@ export const fetchSongs = pageNumber => async dispatch => {
   }
 };
 
+export const LOAD_SONG = 'LOAD_SONG';
+export const loadSong = id => ({
+  type: LOAD_SONG,
+  id,
+});
+
 export const PLAY_SONG = 'PLAY_SONG';
 export const playSong = id => ({
   type: PLAY_SONG,
