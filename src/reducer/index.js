@@ -48,6 +48,8 @@ const addUrlToSelectedSong = ({ songs = [], selectedSong }) => {
   };
 };
 
+const addDerivedState = state => addUrlToSelectedSong(addPlayState(state));
+
 const reducer = (state = intialState, action) => {
   console.log({ state, action });
   const { type } = action;
@@ -58,7 +60,7 @@ const reducer = (state = intialState, action) => {
         ...state,
         songs,
       };
-      return addUrlToSelectedSong(addPlayState(withUpdatedSongs));
+      return addDerivedState(withUpdatedSongs);
     }
     case PLAY_SONG: {
       const { id } = action;
@@ -71,7 +73,7 @@ const reducer = (state = intialState, action) => {
         ...state,
         selectedSong,
       };
-      return addUrlToSelectedSong(addPlayState(withUpdatedSelectedSong));
+      return addDerivedState(withUpdatedSelectedSong);
     }
     case PAUSE_SONG: {
       const { id } = action;
@@ -85,7 +87,7 @@ const reducer = (state = intialState, action) => {
         ...state,
         selectedSong: newSelectedSong,
       };
-      return addUrlToSelectedSong(addPlayState(withUpdatedSelectedSong));
+      return addDerivedState(withUpdatedSelectedSong);
     }
     default:
       return state;

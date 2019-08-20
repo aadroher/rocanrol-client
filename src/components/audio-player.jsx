@@ -3,6 +3,7 @@ import React, {
   useRef,
   useCallback,
   useEffect,
+  useState,
 } from 'react';
 
 const attachEventListeners = audioEl => {
@@ -17,9 +18,23 @@ const attachEventListeners = audioEl => {
 
 const AudioPlayer = ({ src, isPlaying }) => {
   const audioElRef = useRef(null);
+
   useEffect(() => {
     const { current: audioEl } = audioElRef;
-    console.log({ audioEl, src, isPlaying });
+    if (audioEl) {
+      console.log('src changed', audioEl.currentSrc);
+      const { currentSrc } = audioEl;
+      const srcChanged = !currentSrc.includes(src);
+      if (srcChanged) {
+        audioEl.load();
+        audioEl.play();
+      }
+    }
+  }, [src]);
+
+  useEffect(() => {
+    const { current: audioEl } = audioElRef;
+    console.log('isPlaying changed', { audioEl, src, isPlaying });
     if (audioEl) {
       attachEventListeners(audioEl);
       if (src) {
@@ -30,11 +45,8 @@ const AudioPlayer = ({ src, isPlaying }) => {
         }
       }
     }
-  });
+  }, [isPlaying]);
 
-  // const playAudioRef = useCallback(async audioElement => {
-
-  // });
   return (
     src && (
       <audio ref={audioElRef}>
