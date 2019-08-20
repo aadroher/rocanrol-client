@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 import AudioPlayer from '../components/audio-player';
 
 const getSrc = ({ selectedSongId, songs = [] }) => {
@@ -12,4 +11,4 @@ const mapStateToProps = ({ selectedSong: { id, isPlaying }, songs }) => ({
   isPlaying,
 });
 
-export default withRouter(connect(mapStateToProps)(AudioPlayer));
+export default connect(mapStateToProps)(AudioPlayer);

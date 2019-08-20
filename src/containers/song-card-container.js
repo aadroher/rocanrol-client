@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 import { loadSong, playSong, pauseSong } from '../actions';
 import SongCard from '../components/song-card';
 
@@ -23,9 +22,7 @@ const mapDispatchToProps = (dispatch, { isSelected }) => ({
   },
 });
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(SongCard)
-);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SongCard);
