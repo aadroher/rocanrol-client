@@ -5,15 +5,29 @@ import React, {
   useEffect,
 } from 'react';
 
+const attachEventListeners = audioEl => {
+  console.log(audioEl);
+  audioEl.addEventListener('play', () => {
+    console.log('play emitted');
+  });
+  audioEl.addEventListener('pause', () => {
+    console.log('pause emitted');
+  });
+};
+
 const AudioPlayer = ({ src, isPlaying }) => {
-  const audioEl = useRef(null);
+  const audioElRef = useRef(null);
   useEffect(() => {
+    const { current: audioEl } = audioElRef;
     console.log({ audioEl, src, isPlaying });
-    if (src) {
-      if (isPlaying) {
-        audioEl.current.play();
-      } else {
-        audioEl.current.pause();
+    if (audioEl) {
+      attachEventListeners(audioEl);
+      if (src) {
+        if (isPlaying) {
+          audioEl.play();
+        } else {
+          audioEl.pause();
+        }
       }
     }
   });
@@ -23,7 +37,7 @@ const AudioPlayer = ({ src, isPlaying }) => {
   // });
   return (
     src && (
-      <audio ref={audioEl}>
+      <audio ref={audioElRef}>
         <source src={`/api${src}`} type="audio/ogg" />
       </audio>
     )

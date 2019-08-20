@@ -77,13 +77,13 @@ const reducer = (state = intialState, action) => {
       const { id } = action;
       const { selectedSong } = state;
       const newSelectedSong = {
+        ...selectedSong,
         id,
         isPlaying: false,
-        ...selectedSong,
       };
       const withUpdatedSelectedSong = {
         ...state,
-        selectedSong,
+        selectedSong: newSelectedSong,
       };
       return addUrlToSelectedSong(addPlayState(withUpdatedSelectedSong));
     }
