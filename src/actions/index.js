@@ -5,9 +5,9 @@ const requestSongs = pageNumber => ({
 });
 
 export const RECEIVE_SONGS_OK = 'RECEIVE_SONGS_OK';
-const receiveSongsOk = (pageNumber, songs) => ({
+const receiveSongsOk = (pageNumber, payload) => ({
   type: RECEIVE_SONGS_OK,
-  songs,
+  ...payload,
 });
 
 export const RECEIVE_SONGS_ERROR = 'RECEIVE_SONGS_ERROR';
@@ -21,8 +21,15 @@ export const fetchSongs = pageNumber => async dispatch => {
 
   const response = await window.fetch(`/api/songs?page=${pageNumber}`);
   if (response.ok) {
-    const { songs } = await response.json();
-    dispatch(receiveSongsOk(pageNumber, songs));
+    const {
+      page_number: currentPageNumber,
+      num_pages: numPages,
+      songs,
+    } = await response.json();
+    console.log({ currentPageNumber, numPages, songs });
+    dispatch(
+      receiveSongsOk(pageNumber, { currentPageNumber, numPages, songs })
+    );
   } else {
     const msg = `${response.status} - ${response.statusText}`;
     dispatch(receiveSongsError(new Error(msg)));

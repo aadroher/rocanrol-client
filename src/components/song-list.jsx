@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import AppBar from '@material-ui/core/AppBar';
 import Card from '@material-ui/core/Card';
@@ -11,6 +11,7 @@ import { makeStyles } from '@material-ui/styles';
 
 import SongCardContainer from '../containers/song-card-container';
 import AudioPlayerContainer from '../containers/audio-player-container';
+import PaginationContainer from '../containers/pagination-container';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -18,7 +19,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const SongList = ({ songs = [], loadSongs }) => {
+const SongList = ({ currentPageNumber, numPages, songs, loadSongs }) => {
   useEffect(() => {
     loadSongs();
   }, []);
@@ -36,6 +37,9 @@ const SongList = ({ songs = [], loadSongs }) => {
           />
         </Grid>
       ))}
+      <Grid item xs>
+        <PaginationContainer />
+      </Grid>
     </Grid>
   );
 };
