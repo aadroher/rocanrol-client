@@ -24,31 +24,19 @@ const SongList = ({ songs = [], loadSongs }) => {
   }, []);
   const { container } = useStyles();
   return (
-    <>
-      <AppBar position="fixed">
-        <Toolbar>
-          <Typography variant="h6">
-            <span role="img">🤘</span> rocanrol
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      <Container className={container} xs={12} maxWidth="md">
-        <Grid container direction="column" spacing={2}>
-          {songs.map(({ id, title, author, isSelected, isPlaying }) => (
-            <Grid key={id} xs item>
-              <SongCardContainer
-                id={id}
-                title={title}
-                author={author}
-                isSelected={isSelected}
-                isPlaying={isPlaying}
-              />
-            </Grid>
-          ))}
+    <Grid container direction="column" spacing={2}>
+      {songs.map(({ id, title, author, isSelected, isPlaying }) => (
+        <Grid key={id} xs item>
+          <SongCardContainer
+            id={id}
+            title={title}
+            author={author}
+            isSelected={isSelected}
+            isPlaying={isPlaying}
+          />
         </Grid>
-        <AudioPlayerContainer />
-      </Container>
-    </>
+      ))}
+    </Grid>
   );
 };
 export default SongList;

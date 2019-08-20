@@ -10,7 +10,8 @@ import thunk from 'redux-thunk';
 import reducer from './reducer';
 
 import SongListContainer from './containers/song-list-container';
-import Song from './components/song';
+import SongDetailContainer from './containers/song-detail-container';
+import Layout from './components/layout';
 
 import theme from './styles/theme';
 
@@ -22,10 +23,19 @@ const App = () => (
     <Provider store={store}>
       <ThemeProvider theme={theme}>
         <Router>
-          <Switch>
-            <Route exact path="/songs" component={SongListContainer} />
-            <Route path="/songs/:id" component={Song} />
-          </Switch>
+          <Layout>
+            <Switch>
+              <Route
+                exact
+                path="/songs"
+                render={props => <SongListContainer {...props} />}
+              />
+              <Route
+                path="/song/:id"
+                render={props => <SongDetailContainer {...props} />}
+              />
+            </Switch>
+          </Layout>
         </Router>
       </ThemeProvider>
     </Provider>
