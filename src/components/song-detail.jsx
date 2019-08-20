@@ -1,30 +1,6 @@
-import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Grid from '@material-ui/core/Grid';
-import IconButton from '@material-ui/core/IconButton';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
+import React from 'react';
 
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
-import PauseIcon from '@material-ui/icons/Pause';
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
-
-import { makeStyles } from '@material-ui/styles';
-
-const AdapterLink = React.forwardRef((props, ref) => (
-  <Link innerRef={ref} {...props} />
-));
-
-const useStyles = makeStyles(theme => ({
-  playIcon: {
-    height: 38,
-    width: 38,
-  },
-}));
-
-const SongCard = ({
+const SongDetail = ({
   id,
   title,
   author,
@@ -42,14 +18,8 @@ const SongCard = ({
     ? getOnPauseButtonClick(id)
     : getOnPlayButtonClick(id);
 
-  useEffect(() => {
-    if (loadSongs) {
-      loadSongs();
-    }
-  }, []);
-
   return (
-    <Card raised={isSelected}>
+    <Card>
       <CardContent>
         <Grid container spacing={2}>
           <Grid item>
@@ -75,5 +45,3 @@ const SongCard = ({
     </Card>
   );
 };
-
-export default SongCard;
