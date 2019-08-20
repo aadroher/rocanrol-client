@@ -1,15 +1,48 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Grid from '@material-ui/core/Grid';
+import IconButton from '@material-ui/core/IconButton';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
 
-const SongDetail = ({
-  id,
-  title,
-  author,
-  isPlaying,
-  isSelected,
-  getOnPlayButtonClick,
-  getOnPauseButtonClick,
-  loadSongs,
-}) => {
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+import PauseIcon from '@material-ui/icons/Pause';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+
+import { makeStyles } from '@material-ui/styles';
+import { ListItemText } from '@material-ui/core';
+
+const AdapterLink = React.forwardRef((props, ref) => (
+  <Link innerRef={ref} {...props} />
+));
+
+const useStyles = makeStyles(theme => ({
+  playIcon: {
+    height: 38,
+    width: 38,
+  },
+}));
+
+const SongDetail = props => {
+  console.log(props);
+  const {
+    id,
+    title,
+    album,
+    author,
+    publisher,
+    isPlaying,
+    isSelected,
+    getOnPlayButtonClick,
+    getOnPauseButtonClick,
+    loadSongs,
+  } = props;
   const { playIcon } = useStyles({
     isSelected,
   });
@@ -18,11 +51,20 @@ const SongDetail = ({
     ? getOnPauseButtonClick(id)
     : getOnPlayButtonClick(id);
 
+  useEffect(() => {
+    loadSongs();
+  }, []);
+
   return (
     <Card>
       <CardContent>
         <Grid container spacing={2}>
           <Grid item>
+            <IconButton component={AdapterLink} to={`/songs`}>
+              <ArrowBackIcon />
+            </IconButton>
+          </Grid>
+          {/* <Grid item>
             <IconButton onClick={onIconButtonClick} aria-label="play/pause">
               {isPlaying ? (
                 <PauseIcon className={playIcon} />
@@ -30,18 +72,34 @@ const SongDetail = ({
                 <PlayArrowIcon className={playIcon} />
               )}
             </IconButton>
-          </Grid>
+          </Grid> */}
           <Grid item xs={12} sm container direction="column">
             <Typography variant="h5">{title}</Typography>
-            <Typography variant="subtitle1">{author}</Typography>
-          </Grid>
-          <Grid item>
-            <IconButton component={AdapterLink} to={`/song/${id}`}>
-              <MoreHorizIcon />
-            </IconButton>
+            <List dense={true}>
+              <ListItem disableGutters>
+                <ListItemText primary={album} secondary="Album" />
+              </ListItem>
+              <ListItem disableGutters>
+                <ListItemText primary={author} secondary="Author" />
+              </ListItem>
+              <ListItem disableGutters>
+                <ListItemText primary={publisher} secondary="Publisher" />
+              </ListItem>
+            </List>
+            <Grid item>
+              <IconButton onClick={onIconButtonClick} aria-label="play/pause">
+                {isPlaying ? (
+                  <PauseIcon className={playIcon} />
+                ) : (
+                  <PlayArrowIcon className={playIcon} />
+                )}
+              </IconButton>
+            </Grid>
           </Grid>
         </Grid>
       </CardContent>
     </Card>
   );
 };
+
+export default SongDetail;

@@ -32,7 +32,6 @@ const SongCard = ({
   isSelected,
   getOnPlayButtonClick,
   getOnPauseButtonClick,
-  loadSongs,
 }) => {
   const { playIcon } = useStyles({
     isSelected,
@@ -41,12 +40,6 @@ const SongCard = ({
   const onIconButtonClick = isPlaying
     ? getOnPauseButtonClick(id)
     : getOnPlayButtonClick(id);
-
-  useEffect(() => {
-    if (loadSongs) {
-      loadSongs();
-    }
-  }, []);
 
   return (
     <Card raised={isSelected}>

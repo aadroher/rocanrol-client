@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { fetchSongs } from '../actions';
 import { loadSong, playSong, pauseSong } from '../actions';
-import SongCard from '../components/song-card';
+import SongDetail from '../components/song-detail';
 
 const getSongDetails = (
   {
@@ -10,7 +10,6 @@ const getSongDetails = (
   },
   songId
 ) => {
-  console.log({ songs, songId });
   const song = songs.find(({ id }) => id === songId) || {};
   const isSelected = songId === selectedSongId;
   const isPlaying = isSelected && selectedSongIsPlaying;
@@ -48,4 +47,4 @@ const mapDispatchToProps = (dispatch, { isSelected }) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(SongCard);
+)(SongDetail);
