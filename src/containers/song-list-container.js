@@ -17,13 +17,26 @@ const addPlayState = ({ songs, selectedSong }) => {
   });
 };
 
-const mapStateToProps = ({ songs, selectedSong }) => ({
+const mapStateToProps = (
+  { currentPageNumber, numPages, songs, selectedSong },
+  ownProps
+) => ({
+  ...ownProps,
+  currentPageNumber,
+  numPages,
   songs: addPlayState({ songs, selectedSong }),
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (
+  dispatch,
+  {
+    match: {
+      params: { pageNum },
+    },
+  }
+) => ({
   loadSongs: () => {
-    dispatch(fetchSongs(0));
+    dispatch(fetchSongs(pageNum));
   },
 });
 

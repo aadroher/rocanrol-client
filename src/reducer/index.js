@@ -2,22 +2,30 @@ import { RECEIVE_SONGS_OK, PLAY_SONG, PAUSE_SONG } from '../actions';
 import { newExpression } from '@babel/types';
 import { combineReducers } from 'redux';
 
-const intialState = {
-  selectedSong: {
-    id: null,
-    isPlaying: false,
-    url: '',
-  },
-  songs: [],
+const currentPageNumber = (currentPageNumber = 0, action) => {
+  console.log(action);
+  const { type, currentPageNumber: newCurrentPageNumber } = action;
+  switch (type) {
+    case RECEIVE_SONGS_OK:
+      return newCurrentPageNumber;
+    default:
+      return currentPageNumber;
+  }
 };
 
-const songs = (songs = [], action) => {
-  const { type } = action;
+const numPages = (numPages = 0, { type, numPages: newNumPages }) => {
   switch (type) {
-    case RECEIVE_SONGS_OK: {
-      const { songs: newSongs } = action;
+    case RECEIVE_SONGS_OK:
+      return newNumPages;
+    default:
+      return numPages;
+  }
+};
+
+const songs = (songs = [], { type, songs: newSongs }) => {
+  switch (type) {
+    case RECEIVE_SONGS_OK:
       return newSongs;
-    }
     default:
       return songs;
   }
@@ -51,6 +59,8 @@ const selectedSong = (selectedSong = initialSelectedSong, action) => {
 
 const reducer = combineReducers({
   selectedSong,
+  currentPageNumber,
+  numPages,
   songs,
 });
 

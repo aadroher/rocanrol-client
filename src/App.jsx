@@ -31,6 +31,11 @@ const App = () => (
                 render={props => <SongListContainer {...props} />}
               />
               <Route
+                exact
+                path="/songs/page/:pageNum"
+                render={props => <SongListContainer {...props} />}
+              />
+              <Route
                 path="/song/:id"
                 render={props => <SongDetailContainer {...props} />}
               />
