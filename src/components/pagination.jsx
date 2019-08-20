@@ -23,21 +23,26 @@ const PageLink = ({ currentPageNumber, pageNumber, numPages }) => (
   </Grid>
 );
 
-const PrevPageLink = ({ currentPageNumber, numPages }) =>
-  currentPageNumber - 1 >= 0 ? (
+const PrevPageLink = ({ currentPageNumber, numPages }) => {
+  const prevPageNumber = currentPageNumber - 1;
+
+  return prevPageNumber >= 0 ? (
     <Grid item xs={1}>
       <Button
         component={AdapterLink}
-        to={`/songs/page/${currentPageNumber - 1}`}
+        to={`/songs/page/${prevPageNumber}`}
         color="primary"
       >
         <ChevronLeftIcon />
       </Button>
     </Grid>
   ) : null;
+};
 
-const NextPageLink = ({ currentPageNumber, numPages }) =>
-  currentPageNumber + 1 <= numPages ? (
+const NextPageLink = ({ currentPageNumber, numPages }) => {
+  const nextPageNumber = currentPageNumber + 1;
+
+  return nextPageNumber < numPages ? (
     <Grid item xs={1}>
       <Button
         component={AdapterLink}
@@ -48,6 +53,7 @@ const NextPageLink = ({ currentPageNumber, numPages }) =>
       </Button>
     </Grid>
   ) : null;
+};
 
 const Pagination = ({ currentPageNumber, numPages }) => (
   <Grid container spacing={2} justify="center" alignItems="center">

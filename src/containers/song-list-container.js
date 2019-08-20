@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import { fetchSongs } from '../actions';
 import SongList from '../components/song-list';
@@ -17,13 +18,8 @@ const addPlayState = ({ songs, selectedSong }) => {
   });
 };
 
-const mapStateToProps = (
-  { currentPageNumber, numPages, songs, selectedSong },
-  ownProps
-) => ({
+const mapStateToProps = ({ songs, selectedSong }, ownProps) => ({
   ...ownProps,
-  currentPageNumber,
-  numPages,
   songs: addPlayState({ songs, selectedSong }),
 });
 
@@ -44,3 +40,10 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(SongList);
+
+// export default withRouter(
+//   connect(
+//     mapStateToProps,
+//     mapDispatchToProps
+//   )(SongList)
+// );
