@@ -1,11 +1,6 @@
-import {
-  REQUEST_SONGS,
-  RECEIVE_SONGS_OK,
-  PLAY_SONG,
-  PAUSE_SONG,
-} from '../actions';
-import { stat } from 'fs';
+import { RECEIVE_SONGS_OK, PLAY_SONG, PAUSE_SONG } from '../actions';
 import { newExpression } from '@babel/types';
+import { combineReducers } from 'redux';
 
 const intialState = {
   selectedSong: {
@@ -16,82 +11,47 @@ const intialState = {
   songs: [],
 };
 
-const addPlayState = ({ songs, selectedSong }) => {
-  const { id: selectedSongId, isPlaying: selectedSongIsPlaying } = selectedSong;
-  const newSongs = songs.map(song => {
-    const { id: songId } = song;
-    const isSelected = songId === selectedSongId;
-    const isPlaying = isSelected && selectedSongIsPlaying;
-    return {
-      ...song,
-      isSelected,
-      isPlaying,
-    };
-  });
-  return {
-    songs: newSongs,
-    selectedSong,
-  };
-};
-
-const addUrlToSelectedSong = ({ songs = [], selectedSong }) => {
-  const { id: selectedSongId } = selectedSong;
-  console.log({ songs });
-  const { url = '' } = songs.find(({ id }) => id === selectedSongId) || {};
-  const newSelectedSong = {
-    ...selectedSong,
-    url,
-  };
-  return {
-    selectedSong: newSelectedSong,
-    songs,
-  };
-};
-
-const addDerivedState = state => addUrlToSelectedSong(addPlayState(state));
-
-const reducer = (state = intialState, action) => {
-  console.log({ state, action });
+const songs = (songs = [], action) => {
   const { type } = action;
   switch (type) {
     case RECEIVE_SONGS_OK: {
-      const { songs } = action;
-      const withUpdatedSongs = {
-        ...state,
-        songs,
-      };
-      return addDerivedState(withUpdatedSongs);
-    }
-    case PLAY_SONG: {
-      const { id } = action;
-      const selectedSong = {
-        id,
-        isPlaying: true,
-        url: '',
-      };
-      const withUpdatedSelectedSong = {
-        ...state,
-        selectedSong,
-      };
-      return addDerivedState(withUpdatedSelectedSong);
-    }
-    case PAUSE_SONG: {
-      const { id } = action;
-      const { selectedSong } = state;
-      const newSelectedSong = {
-        ...selectedSong,
-        id,
-        isPlaying: false,
-      };
-      const withUpdatedSelectedSong = {
-        ...state,
-        selectedSong: newSelectedSong,
-      };
-      return addDerivedState(withUpdatedSelectedSong);
+      const { songs: newSongs } = action;
+      return newSongs;
     }
     default:
-      return state;
+      return songs;
   }
 };
+
+const initialSelectedSong = {
+  id: null,
+  isPlaying: false,
+};
+
+const selectedSong = (selectedSong = initialSelectedSong, action) => {
+  const { type } = action;
+  switch (type) {
+    case PLAY_SONG: {
+      const { id } = action;
+      return {
+        id,
+        isPlaying: true,
+      };
+    }
+    case PAUSE_SONG: {
+      return {
+        ...selectedSong,
+        isPlaying: false,
+      };
+    }
+    default:
+      return selectedSong;
+  }
+};
+
+const reducer = combineReducers({
+  selectedSong,
+  songs,
+});
 
 export default reducer;
