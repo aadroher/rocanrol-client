@@ -32,6 +32,7 @@ const useStyles = makeStyles(theme => ({
 const SongDetail = props => {
   console.log(props);
   const {
+    currentPageNumber,
     id,
     title,
     album,
@@ -41,7 +42,6 @@ const SongDetail = props => {
     isSelected,
     getOnPlayButtonClick,
     getOnPauseButtonClick,
-    loadSongs,
   } = props;
   const { playIcon } = useStyles({
     isSelected,
@@ -51,28 +51,18 @@ const SongDetail = props => {
     ? getOnPauseButtonClick(id)
     : getOnPlayButtonClick(id);
 
-  useEffect(() => {
-    loadSongs();
-  }, []);
-
   return (
     <Card>
       <CardContent>
         <Grid container spacing={2}>
           <Grid item>
-            <IconButton component={AdapterLink} to={`/songs`}>
+            <IconButton
+              component={AdapterLink}
+              to={`/songs/page/${currentPageNumber}`}
+            >
               <ArrowBackIcon />
             </IconButton>
           </Grid>
-          {/* <Grid item>
-            <IconButton onClick={onIconButtonClick} aria-label="play/pause">
-              {isPlaying ? (
-                <PauseIcon className={playIcon} />
-              ) : (
-                <PlayArrowIcon className={playIcon} />
-              )}
-            </IconButton>
-          </Grid> */}
           <Grid item xs={12} sm container direction="column">
             <Typography variant="h5">{title}</Typography>
             <List dense={true}>
