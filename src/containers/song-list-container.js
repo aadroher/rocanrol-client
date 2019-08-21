@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-
 import { fetchSongs } from '../actions';
 import SongList from '../components/song-list';
 
@@ -39,10 +38,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(SongList);
-
-// export default withRouter(
-//   connect(
-//     mapStateToProps,
-//     mapDispatchToProps
-//   )(SongList)
-// );

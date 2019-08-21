@@ -1,5 +1,5 @@
-import { RECEIVE_SONGS_OK, PLAY_SONG, PAUSE_SONG, END_SONG } from '../actions';
 import { combineReducers } from 'redux';
+import { RECEIVE_SONGS_OK, PLAY_SONG, PAUSE_SONG, END_SONG } from '../actions';
 
 const currentPageNumber = (currentPageNumber = 0, action) => {
   const { type, currentPageNumber: newCurrentPageNumber } = action;
