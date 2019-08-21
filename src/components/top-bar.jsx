@@ -8,7 +8,10 @@ const TopBar = () => (
   <AppBar position="fixed">
     <Toolbar>
       <Typography variant="h6">
-        <span role="img">🤘</span> rocanrol
+        <span role="img" aria-label="Sign of the Horns">
+          🤘
+        </span>{' '}
+        rocanrol
       </Typography>
     </Toolbar>
   </AppBar>

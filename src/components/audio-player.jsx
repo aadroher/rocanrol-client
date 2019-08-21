@@ -1,10 +1,4 @@
-import React, {
-  useImperativeHandle,
-  useRef,
-  useCallback,
-  useEffect,
-  useState,
-} from 'react';
+import React, { useRef, useEffect } from 'react';
 
 const addEndedEventListener = ({ audioEl, onSongEnd }) => {
   audioEl.addEventListener('ended', onSongEnd);
@@ -37,7 +31,7 @@ const AudioPlayer = ({ src, isPlaying, onSongEnd }) => {
   useEffect(() => {
     const { current: audioEl } = audioElRef;
     addEndedEventListener({ audioEl, onSongEnd });
-  }, []);
+  }, [onSongEnd]);
 
   useEffect(() => {
     const { current: audioEl } = audioElRef;
@@ -47,7 +41,7 @@ const AudioPlayer = ({ src, isPlaying, onSongEnd }) => {
   useEffect(() => {
     const { current: audioEl } = audioElRef;
     togglePlayback({ audioEl, src, isPlaying });
-  }, [isPlaying]);
+  }, [isPlaying, src]);
 
   return (
     <audio ref={audioElRef}>
