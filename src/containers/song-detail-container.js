@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-import { fetchSongs } from '../actions';
 import { playSong, pauseSong } from '../actions';
 import SongDetail from '../components/song-detail';
 
@@ -32,7 +31,7 @@ const mapStateToProps = (
   ...getSongDetails({ songs, selectedSong }, selectedSongId),
 });
 
-const mapDispatchToProps = (dispatch, { isSelected }) => ({
+const mapDispatchToProps = dispatch => ({
   getOnPlayButtonClick: id => () => {
     dispatch(playSong(id));
   },
