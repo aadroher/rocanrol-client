@@ -2,7 +2,12 @@ import React from 'react';
 import { ThemeProvider } from '@material-ui/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { Provider } from 'react-redux';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from 'react-router-dom';
 import { createStore, applyMiddleware, compose } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
@@ -25,11 +30,8 @@ const App = () => (
         <Router>
           <Layout>
             <Switch>
-              <Route
-                exact
-                path="/songs"
-                render={props => <SongListContainer {...props} />}
-              />
+              <Redirect exact from="/" to="/songs/page/0" />
+              <Redirect exact from="/songs" to="/songs/page/0" />
               <Route
                 exact
                 path="/songs/page/:pageNum"
