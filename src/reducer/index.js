@@ -1,6 +1,7 @@
 import { RECEIVE_SONGS_OK, PLAY_SONG, PAUSE_SONG } from '../actions';
 import { newExpression } from '@babel/types';
 import { combineReducers } from 'redux';
+import { connectRouter } from 'connected-react-router';
 
 const currentPageNumber = (currentPageNumber = 0, action) => {
   console.log(action);
@@ -57,11 +58,20 @@ const selectedSong = (selectedSong = initialSelectedSong, action) => {
   }
 };
 
-const reducer = combineReducers({
-  selectedSong,
-  currentPageNumber,
-  numPages,
-  songs,
-});
+// const reducer = combineReducers({
+//   selectedSong,
+//   currentPageNumber,
+//   numPages,
+//   songs,
+// });
 
-export default reducer;
+const createRootReducer = history =>
+  combineReducers({
+    router: connectRouter(history),
+    selectedSong,
+    currentPageNumber,
+    numPages,
+    songs,
+  });
+
+export default createRootReducer;
