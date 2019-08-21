@@ -3,8 +3,8 @@ import React from 'react';
 import { makeStyles } from '@material-ui/styles';
 import Container from '@material-ui/core/Container';
 
-import TopBar from './top-bar';
 import AudioPlayerContainer from '../containers/audio-player-container';
+import TopBar from './top-bar';
 
 const useStyles = makeStyles(theme => ({
   container: {
