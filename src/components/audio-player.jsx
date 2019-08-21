@@ -9,7 +9,7 @@ import React, {
 const reloadSong = ({ audioEl, src }) => {
   if (audioEl) {
     const { currentSrc } = audioEl;
-    const srcChanged = !currentSrc.includes(src);
+    const srcChanged = src && !currentSrc.includes(src);
     if (srcChanged) {
       audioEl.load();
       audioEl.play();
@@ -41,11 +41,9 @@ const AudioPlayer = ({ src, isPlaying }) => {
   }, [isPlaying]);
 
   return (
-    src && (
-      <audio ref={audioElRef}>
-        <source src={`/api${src}`} type="audio/ogg" />
-      </audio>
-    )
+    <audio ref={audioElRef}>
+      <source src={`/api${src}`} type="audio/ogg" />
+    </audio>
   );
 };
 

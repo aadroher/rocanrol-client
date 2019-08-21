@@ -3,7 +3,6 @@ import { newExpression } from '@babel/types';
 import { combineReducers } from 'redux';
 
 const currentPageNumber = (currentPageNumber = 0, action) => {
-  console.log(action);
   const { type, currentPageNumber: newCurrentPageNumber } = action;
   switch (type) {
     case RECEIVE_SONGS_OK:

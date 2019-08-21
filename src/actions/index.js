@@ -26,7 +26,7 @@ export const fetchSongs = pageNumber => async dispatch => {
       num_pages: numPages,
       songs,
     } = await response.json();
-    console.log({ currentPageNumber, numPages, songs });
+
     dispatch(
       receiveSongsOk(pageNumber, { currentPageNumber, numPages, songs })
     );

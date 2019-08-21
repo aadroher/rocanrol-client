@@ -30,7 +30,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const SongDetail = props => {
-  console.log(props);
   const {
     currentPageNumber,
     id,
