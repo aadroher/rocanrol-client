@@ -21,13 +21,16 @@ const getSongDetails = (
 };
 
 const mapStateToProps = (
-  state,
+  { currentPageNumber, songs, selectedSong },
   {
     match: {
       params: { id: selectedSongId },
     },
   }
-) => getSongDetails(state, selectedSongId);
+) => ({
+  currentPageNumber,
+  ...getSongDetails({ songs, selectedSong }, selectedSongId),
+});
 
 const mapDispatchToProps = (dispatch, { isSelected }) => ({
   loadSongs: () => {

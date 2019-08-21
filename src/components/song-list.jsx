@@ -19,10 +19,16 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const SongList = ({ currentPageNumber, numPages, songs, loadSongs }) => {
+const SongList = ({
+  currentPageNumber,
+  numPages,
+  songs,
+  loadSongs,
+  match: { url },
+}) => {
   useEffect(() => {
     loadSongs();
-  }, []);
+  }, [url]);
   const { container } = useStyles();
   return (
     <Grid container direction="column" spacing={2}>
