@@ -1,6 +1,8 @@
 {
   "env": {
-    "es6": true
+    "browser": true,
+    "es6": true,
+    "jest": true
   },
   "parserOptions": {
     "ecmaVersion": 2018,
@@ -9,7 +11,7 @@
       "jsx": true
     }
   },
-  "extends": ["prettier", "prettier/react"],
+  "extends": ["eslint:recommended", "prettier", "prettier/react"],
   "plugins": ["prettier"],
   "rules": {
     "import/no-extraneous-dependencies": [0],
