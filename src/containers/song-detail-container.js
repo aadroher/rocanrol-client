@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { fetchSongs } from '../actions';
-import { loadSong, playSong, pauseSong } from '../actions';
+import { playSong, pauseSong } from '../actions';
 import SongDetail from '../components/song-detail';
 
 const getSongDetails = (
@@ -33,17 +33,11 @@ const mapStateToProps = (
 });
 
 const mapDispatchToProps = (dispatch, { isSelected }) => ({
-  loadSongs: () => {
-    dispatch(fetchSongs(0));
-  },
   getOnPlayButtonClick: id => () => {
-    if (!isSelected) {
-      dispatch(loadSong(id));
-    }
     dispatch(playSong(id));
   },
-  getOnPauseButtonClick: id => () => {
-    dispatch(pauseSong(id));
+  getOnPauseButtonClick: () => () => {
+    dispatch(pauseSong());
   },
 });
 
