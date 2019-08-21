@@ -36,13 +36,10 @@ const SongDetail = props => {
     author,
     publisher,
     isPlaying,
-    isSelected,
     getOnPlayButtonClick,
     getOnPauseButtonClick,
   } = props;
-  const { playIcon } = useStyles({
-    isSelected,
-  });
+  const { playIcon } = useStyles();
 
   const onIconButtonClick = isPlaying
     ? getOnPauseButtonClick(id)
