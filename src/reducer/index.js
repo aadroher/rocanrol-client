@@ -1,4 +1,4 @@
-import { RECEIVE_SONGS_OK, PLAY_SONG, PAUSE_SONG } from '../actions';
+import { RECEIVE_SONGS_OK, PLAY_SONG, PAUSE_SONG, END_SONG } from '../actions';
 import { newExpression } from '@babel/types';
 import { combineReducers } from 'redux';
 
@@ -45,7 +45,8 @@ const selectedSong = (selectedSong = initialSelectedSong, action) => {
         isPlaying: true,
       };
     }
-    case PAUSE_SONG: {
+    case PAUSE_SONG:
+    case END_SONG: {
       return {
         ...selectedSong,
         isPlaying: false,

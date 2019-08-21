@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { endSong } from '../actions';
 import AudioPlayer from '../components/audio-player';
 
 const getSrc = ({ selectedSongId, songs = [] }) => {
@@ -11,4 +12,13 @@ const mapStateToProps = ({ selectedSong: { id, isPlaying }, songs }) => ({
   isPlaying,
 });
 
-export default connect(mapStateToProps)(AudioPlayer);
+const mapDispatchToProps = dispatch => ({
+  onSongEnd: () => {
+    dispatch(endSong());
+  },
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AudioPlayer);

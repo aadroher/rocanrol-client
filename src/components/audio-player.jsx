@@ -6,6 +6,10 @@ import React, {
   useState,
 } from 'react';
 
+const addEndedEventListener = ({ audioEl, onSongEnd }) => {
+  audioEl.addEventListener('ended', onSongEnd);
+};
+
 const reloadSong = ({ audioEl, src }) => {
   if (audioEl) {
     const { currentSrc } = audioEl;
@@ -27,8 +31,13 @@ const togglePlayback = ({ audioEl, src, isPlaying }) => {
   }
 };
 
-const AudioPlayer = ({ src, isPlaying }) => {
+const AudioPlayer = ({ src, isPlaying, onSongEnd }) => {
   const audioElRef = useRef(null);
+
+  useEffect(() => {
+    const { current: audioEl } = audioElRef;
+    addEndedEventListener({ audioEl, onSongEnd });
+  }, []);
 
   useEffect(() => {
     const { current: audioEl } = audioElRef;
