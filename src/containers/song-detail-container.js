@@ -31,11 +31,18 @@ const mapStateToProps = (
   ...getSongDetails({ songs, selectedSong }, selectedSongId),
 });
 
-const mapDispatchToProps = dispatch => ({
-  getOnPlayButtonClick: id => () => {
-    dispatch(playSong(id));
+const mapDispatchToProps = (
+  dispatch,
+  {
+    match: {
+      params: { id: selectedSongId },
+    },
+  }
+) => ({
+  onPlayButtonClick: () => {
+    dispatch(playSong(selectedSongId));
   },
-  getOnPauseButtonClick: () => () => {
+  onPauseButtonClick: () => {
     dispatch(pauseSong());
   },
 });
