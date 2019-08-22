@@ -10,11 +10,11 @@ const mapStateToProps = (_, { id, title, author, isSelected, isPlaying }) => ({
   isPlaying,
 });
 
-const mapDispatchToProps = dispatch => ({
-  getOnPlayButtonClick: id => () => {
+const mapDispatchToProps = (dispatch, { id }) => ({
+  onPlayButtonClick: () => {
     dispatch(playSong(id));
   },
-  getOnPauseButtonClick: () => () => {
+  onPauseButtonClick: () => {
     dispatch(pauseSong());
   },
 });

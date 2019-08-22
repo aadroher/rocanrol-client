@@ -13,6 +13,7 @@ const SongList = ({
   useEffect(() => {
     loadSongs();
   }, [loadSongs, url]);
+
   return (
     <Grid container direction="column" spacing={2}>
       {songs.map(({ id, title, author, isSelected, isPlaying }) => (

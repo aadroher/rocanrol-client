@@ -13,12 +13,10 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 
 import reducer from './reducer';
-
+import theme from './styles/theme';
+import Layout from './components/layout';
 import SongListContainer from './containers/song-list-container';
 import SongDetailContainer from './containers/song-detail-container';
-import Layout from './components/layout';
-
-import theme from './styles/theme';
 
 const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)));
 
