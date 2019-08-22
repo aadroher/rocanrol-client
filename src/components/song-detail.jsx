@@ -1,21 +1,18 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
+import withLink from './hocs/with-link';
 import PlayPauseButton from './play-pause-button';
 
-const AdapterLink = React.forwardRef((props, ref) => (
-  <Link innerRef={ref} {...props} />
-));
+const LinkIconButton = withLink(IconButton);
 
 const SongDetail = ({
   currentPageNumber,
@@ -31,12 +28,9 @@ const SongDetail = ({
     <CardContent>
       <Grid container spacing={2}>
         <Grid item>
-          <IconButton
-            component={AdapterLink}
-            to={`/songs/page/${currentPageNumber}`}
-          >
+          <LinkIconButton to={`/songs/page/${currentPageNumber}`}>
             <ArrowBackIcon />
-          </IconButton>
+          </LinkIconButton>
         </Grid>
         <Grid item xs={12} sm container direction="column">
           <Typography variant="h5">{title}</Typography>

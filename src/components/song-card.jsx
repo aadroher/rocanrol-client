@@ -1,16 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+
+import withLink from './hocs/with-link';
 import PlayPauseButton from './play-pause-button';
 
-const AdapterLink = React.forwardRef((props, ref) => (
-  <Link innerRef={ref} {...props} />
-));
+const LinkIconButton = withLink(IconButton);
 
 const SongCard = ({
   id,
@@ -36,9 +35,9 @@ const SongCard = ({
           <Typography variant="subtitle1">{author}</Typography>
         </Grid>
         <Grid item>
-          <IconButton component={AdapterLink} to={`/song/${id}`}>
+          <LinkIconButton to={`/song/${id}`}>
             <MoreHorizIcon />
-          </IconButton>
+          </LinkIconButton>
         </Grid>
       </Grid>
     </CardContent>

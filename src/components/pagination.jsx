@@ -1,24 +1,22 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import Typography from '@material-ui/core/Typography';
 
-const AdapterLink = React.forwardRef((props, ref) => (
-  <Link innerRef={ref} {...props} />
-));
+import withLink from './hocs/with-link';
+
+const LinkButton = withLink(Button);
 
 const PageLink = ({ currentPageNumber, pageNumber, numPages }) => (
   <Grid item xs={1}>
-    <Button
-      component={AdapterLink}
+    <LinkButton
       to={`/songs/page/${pageNumber}`}
       color={currentPageNumber === pageNumber ? 'secondary' : 'primary'}
     >
       <Typography>{pageNumber + 1}</Typography>
-    </Button>
+    </LinkButton>
   </Grid>
 );
 
@@ -27,13 +25,9 @@ const PrevPageLink = ({ currentPageNumber, numPages }) => {
 
   return prevPageNumber >= 0 ? (
     <Grid item xs={1}>
-      <Button
-        component={AdapterLink}
-        to={`/songs/page/${prevPageNumber}`}
-        color="primary"
-      >
+      <LinkButton to={`/songs/page/${prevPageNumber}`} color="primary">
         <ChevronLeftIcon />
-      </Button>
+      </LinkButton>
     </Grid>
   ) : null;
 };
@@ -43,13 +37,9 @@ const NextPageLink = ({ currentPageNumber, numPages }) => {
 
   return nextPageNumber < numPages ? (
     <Grid item xs={1}>
-      <Button
-        component={AdapterLink}
-        to={`/songs/page/${currentPageNumber + 1}`}
-        color="primary"
-      >
+      <LinkButton to={`/songs/page/${currentPageNumber + 1}`} color="primary">
         <ChevronRightIcon />
-      </Button>
+      </LinkButton>
     </Grid>
   ) : null;
 };
