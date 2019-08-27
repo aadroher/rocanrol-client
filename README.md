@@ -104,4 +104,9 @@ Lots of things can go wrong in a web app like this, since there is a considerabl
 
 As mentioned above, the current state of the unit testing is a joke. I have added so far only a couple of test suites, which should serve as an example of what needs to be done for the whole code.
 
+### Type checking
+
+There is currently no use of prop value type validation and definition of default values with [`prop-types`](https://reactjs.org/docs/typechecking-with-proptypes.html). It does not provide the compile-time robustness of static typing but it does add a very cheap layer of type safety.
+
+
  
